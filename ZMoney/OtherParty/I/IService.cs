@@ -14,12 +14,17 @@ namespace ZOtherParty.I
         /// <summary>
         /// APIKey
         /// </summary>
-        string APIKey { get; }
+        static string APIKey { get; } = string.Empty;
 
         /// <summary>
         /// APISecret
         /// </summary>
-        string APISecret { get; }
+        static string APISecret { get; } = string.Empty;
+
+        /// <summary>
+        /// API地址
+        /// </summary>
+        static string APIAddress { get; } = string.Empty;
 
     }
 }

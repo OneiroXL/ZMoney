@@ -1,8 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "1e0w3bmW0TrnYTY/mnPIgXvqFJ6uRmFcQ9cl+FbX/nhqCDwM2Ce8loyLNb0ZUJIvo0FUpv+6jtkMufkPMo+0KA==",
+  "dgSpecHash": "32cUvEisz66+a1UrgYyBbENoJWiQPCfb30s6EJAvfNrET2VgYcX3vHS/ALSJzpMfumA6Y7TqO3NcfZUJdrOT8A==",
   "success": true,
   "projectFilePath": "G:\\Project\\NET\\ZMoney\\ZMoney\\ZBase\\ZBase.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "G:\\Server\\NuGet\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.extensions.configuration\\6.0.0\\microsoft.extensions.configuration.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.extensions.configuration.fileextensions\\6.0.0\\microsoft.extensions.configuration.fileextensions.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.extensions.configuration.json\\6.0.0\\microsoft.extensions.configuration.json.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.extensions.fileproviders.abstractions\\6.0.0\\microsoft.extensions.fileproviders.abstractions.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.extensions.fileproviders.physical\\6.0.0\\microsoft.extensions.fileproviders.physical.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.extensions.filesystemglobbing\\6.0.0\\microsoft.extensions.filesystemglobbing.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
+    "G:\\Server\\NuGet\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

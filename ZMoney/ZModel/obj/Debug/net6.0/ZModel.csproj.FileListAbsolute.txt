@@ -1,0 +1,12 @@
+G:\Project\NET\ZMoney\ZMoney\ZModel\bin\Debug\net6.0\ZModel.deps.json
+G:\Project\NET\ZMoney\ZMoney\ZModel\bin\Debug\net6.0\ZModel.dll
+G:\Project\NET\ZMoney\ZMoney\ZModel\bin\Debug\net6.0\ref\ZModel.dll
+G:\Project\NET\ZMoney\ZMoney\ZModel\bin\Debug\net6.0\ZModel.pdb
+G:\Project\NET\ZMoney\ZMoney\ZModel\obj\Debug\net6.0\ZModel.GeneratedMSBuildEditorConfig.editorconfig
+G:\Project\NET\ZMoney\ZMoney\ZModel\obj\Debug\net6.0\ZModel.AssemblyInfoInputs.cache
+G:\Project\NET\ZMoney\ZMoney\ZModel\obj\Debug\net6.0\ZModel.AssemblyInfo.cs
+G:\Project\NET\ZMoney\ZMoney\ZModel\obj\Debug\net6.0\ZModel.csproj.CoreCompileInputs.cache
+G:\Project\NET\ZMoney\ZMoney\ZModel\obj\Debug\net6.0\ZModel.dll
+G:\Project\NET\ZMoney\ZMoney\ZModel\obj\Debug\net6.0\ref\ZModel.dll
+G:\Project\NET\ZMoney\ZMoney\ZModel\obj\Debug\net6.0\ZModel.pdb
+G:\Project\NET\ZMoney\ZMoney\ZModel\obj\Debug\net6.0\ZModel.csproj.AssemblyReference.cache

@@ -3,13 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZMoney", "ZMoney\ZMoney.csproj", "{93E5F10E-6CCF-447C-BE91-F95D7FB7892B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZMoney", "ZMoney\ZMoney.csproj", "{93E5F10E-6CCF-447C-BE91-F95D7FB7892B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZBase", "ZBase\ZBase.csproj", "{15EA8033-58C2-4BFB-A1BC-E634EFA30A44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZBase", "ZBase\ZBase.csproj", "{15EA8033-58C2-4BFB-A1BC-E634EFA30A44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZOtherParty", "OtherParty\ZOtherParty.csproj", "{545129A7-23A1-414C-8A2D-9636C5B2B29C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZOtherParty", "OtherParty\ZOtherParty.csproj", "{545129A7-23A1-414C-8A2D-9636C5B2B29C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZCore", "ZCore\ZCore.csproj", "{7F709BB2-6EBF-47E5-9E78-B35B26A2E50C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZCore", "ZCore\ZCore.csproj", "{7F709BB2-6EBF-47E5-9E78-B35B26A2E50C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZModel", "ZModel\ZModel.csproj", "{2A214B3E-1952-4E02-9E7E-593F16355D81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9989FF04-98CC-42BD-9482-FE9BE212938E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +40,10 @@ Global
 		{7F709BB2-6EBF-47E5-9E78-B35B26A2E50C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F709BB2-6EBF-47E5-9E78-B35B26A2E50C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F709BB2-6EBF-47E5-9E78-B35B26A2E50C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A214B3E-1952-4E02-9E7E-593F16355D81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A214B3E-1952-4E02-9E7E-593F16355D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A214B3E-1952-4E02-9E7E-593F16355D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A214B3E-1952-4E02-9E7E-593F16355D81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

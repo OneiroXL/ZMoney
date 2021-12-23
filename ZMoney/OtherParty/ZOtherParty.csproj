@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ZBase\ZBase.csproj" />
+    <ProjectReference Include="..\ZModel\ZModel.csproj" />
+  </ItemGroup>
+
 </Project>
