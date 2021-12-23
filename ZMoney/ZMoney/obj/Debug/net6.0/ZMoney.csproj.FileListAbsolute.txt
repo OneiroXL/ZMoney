@@ -1,0 +1,15 @@
+G:\Project\NET\ZMoney\ZMoney\ZMoney\bin\Debug\net6.0\ZMoney.exe
+G:\Project\NET\ZMoney\ZMoney\ZMoney\bin\Debug\net6.0\ZMoney.deps.json
+G:\Project\NET\ZMoney\ZMoney\ZMoney\bin\Debug\net6.0\ZMoney.runtimeconfig.json
+G:\Project\NET\ZMoney\ZMoney\ZMoney\bin\Debug\net6.0\ZMoney.dll
+G:\Project\NET\ZMoney\ZMoney\ZMoney\bin\Debug\net6.0\ref\ZMoney.dll
+G:\Project\NET\ZMoney\ZMoney\ZMoney\bin\Debug\net6.0\ZMoney.pdb
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ZMoney.csproj.AssemblyReference.cache
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ZMoney.GeneratedMSBuildEditorConfig.editorconfig
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ZMoney.AssemblyInfoInputs.cache
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ZMoney.AssemblyInfo.cs
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ZMoney.csproj.CoreCompileInputs.cache
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ZMoney.dll
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ref\ZMoney.dll
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ZMoney.pdb
+G:\Project\NET\ZMoney\ZMoney\ZMoney\obj\Debug\net6.0\ZMoney.genruntimeconfig.cache
