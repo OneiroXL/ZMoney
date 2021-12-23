@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "93e5f10e-6ccf-447c-be91-f95d7fb7892b": {
+      "ProjectGuid": "93e5f10e-6ccf-447c-be91-f95d7fb7892b",
+      "DisplayName": "ZMoney",
+      "ColorIndex": 0
+    },
+    "15ea8033-58c2-4bfb-a1bc-e634efa30a44": {
+      "ProjectGuid": "15ea8033-58c2-4bfb-a1bc-e634efa30a44",
+      "DisplayName": "ZBase",
+      "ColorIndex": 1
+    },
+    "545129a7-23a1-414c-8a2d-9636c5b2b29c": {
+      "ProjectGuid": "545129a7-23a1-414c-8a2d-9636c5b2b29c",
+      "DisplayName": "ZOtherParty",
+      "ColorIndex": 2
+    },
+    "7f709bb2-6ebf-47e5-9e78-b35b26a2e50c": {
+      "ProjectGuid": "7f709bb2-6ebf-47e5-9e78-b35b26a2e50c",
+      "DisplayName": "ZCore",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}
