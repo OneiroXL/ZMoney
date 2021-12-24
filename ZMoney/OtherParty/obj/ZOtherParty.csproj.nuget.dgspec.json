@@ -182,7 +182,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "G:\\Project\\NET\\ZMoney\\ZMoney\\ZBase\\ZBase.csproj": {
+                "projectPath": "G:\\Project\\NET\\ZMoney\\ZMoney\\ZBase\\ZBase.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

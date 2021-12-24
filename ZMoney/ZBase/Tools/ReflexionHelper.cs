@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -125,6 +126,59 @@ namespace ZBase.Tools
             return dictionary;
         }
         #endregion
+
+        #region 将类中的JsonProperty字段名和值转为字典
+        /// <summary>
+        /// 将类中的JsonProperty字段名和值转为字典
+        /// </summary>
+        /// <returns></returns>
+        public static Dictionary<string, string> ClassFieldJsonPropertyToDictionary<T>(T model)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            PropertyInfo[] peroperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo property in peroperties)
+            {
+                object[] objs = property.GetCustomAttributes(typeof(JsonProperty), true);
+                if (objs.Length > 0)
+                {
+                    object value = property.GetValue(model, null);
+                    if (value != null) 
+                    {
+                        dictionary.Add(((JsonProperty)objs[0]).PropertyName, value.ToString());
+                    }
+                }
+            }
+            return dictionary;
+        }
+        #endregion
+
+        #region 反射遍历对象属性(属性值为空的不生效)
+        /// <summary>
+        /// C#反射遍历对象属性(属性值为空的不生效)
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="model">对象</param>
+        public static Dictionary<string, string> ForeachClassPropertiesDic<T>(T model)
+        {
+            Type t = model.GetType();
+            PropertyInfo[] PropertyList = t.GetProperties();
+
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+
+            foreach (PropertyInfo item in PropertyList)
+            {
+                object value = item.GetValue(model, null);
+                if (value != null) 
+                {
+                    string name = item.Name;
+                    dictionary[name] = value.ToString();
+                }
+            }
+
+            return dictionary;
+        }
+        #endregion
+
 
     }
 }

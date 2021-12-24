@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ZBase.ZEnum.BinanceEnum;
 
 /*
 基于订单 type不同，强制要求某些参数:
@@ -45,7 +46,7 @@ namespace ZModel.Binance.Param
     /// <summary>
     /// 现货下单参数
     /// </summary>
-    public class SpotTradeOrderParam
+    public class SpotTradeOrderPModel
     {
         /// <summary>
         /// 交易对 symbol STRING  YES
@@ -57,13 +58,13 @@ namespace ZModel.Binance.Param
         /// side    ENUM YES 详见枚举定义：订单方向
         /// </summary>
         [JsonProperty(PropertyName = "side")]
-        public object Side { set; get; }
+        public SPOTSideEuum Side { set; get; }
 
         /// <summary>
         /// type    ENUM YES 详见枚举定义：订单类型
         /// </summary>
         [JsonProperty(PropertyName = "type")]
-        public object Type { set; get; }
+        public string Type { set; get; }
 
         /// <summary>
         /// timeInForce ENUM NO  详见枚举定义：有效方式
@@ -118,11 +119,5 @@ namespace ZModel.Binance.Param
         /// </summary>
         [JsonProperty(PropertyName = "recvWindow")]
         public long RecvWindow { set; get; }
-
-        /// <summary>
-        /// 时间戳 timestamp LONG    YES
-        /// </summary>
-        [JsonProperty(PropertyName = "timestamp")]
-        public long Timestamp { set; get; }
     }
 }

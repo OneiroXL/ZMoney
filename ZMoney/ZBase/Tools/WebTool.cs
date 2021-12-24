@@ -326,5 +326,20 @@ namespace ZBase.Tools
             return result;
         }
         #endregion
+
+        #region 组装参数
+        /// <summary>
+        /// 组装参数
+        /// </summary>
+        /// <param name="paramDic">参数字典</param>
+        /// <returns></returns>
+        public static string AssembleXWFUParam(Dictionary<string, string> paramDic) 
+        {
+            string param = string.Empty;
+            param = paramDic.Aggregate(param, (current, item) => current + item.Key + "=" + item.Value + "&");
+            return param.Substring(0, param.Length - 1);
+        }
+
+        #endregion
     }
 }

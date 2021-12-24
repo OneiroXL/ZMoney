@@ -222,7 +222,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Newtonsoft.Json": "13.0.1"
+          "Newtonsoft.Json": "13.0.1",
+          "ZBase": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ZModel.dll": {}
