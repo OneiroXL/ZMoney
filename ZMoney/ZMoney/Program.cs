@@ -22,9 +22,9 @@ namespace ZMoney
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            Console.WriteLine("BinanceServer PING:{0}", BinanceService.Ping());
-            Console.WriteLine("BinanceServer WalletServerStatus:{0}", BinanceService.WalletServerStatus());
-            Console.WriteLine("BinanceServer Time:{0}", BinanceService.GetServerTime());
+            Console.WriteLine("BinanceServer PING:{0}", BinanceHTTPService.Ping());
+            Console.WriteLine("BinanceServer WalletServerStatus:{0}", BinanceHTTPService.WalletServerStatus());
+            Console.WriteLine("BinanceServer Time:{0}", BinanceHTTPService.GetServerTime());
 
 
             ////现货下单
@@ -80,7 +80,7 @@ namespace ZMoney
             {
                 Thread.Sleep(1000);
 
-                QuerySymbolNewestPriceRModel querySymbolNewestPriceRModel = BinanceService.QuerySymbolNewestPrice(querySymbolNewestPricePModel);
+                QuerySymbolNewestPriceRModel querySymbolNewestPriceRModel = BinanceHTTPService.QuerySymbolNewestPrice(querySymbolNewestPricePModel);
 
                 Console.WriteLine($"Symbol:{querySymbolNewestPriceRModel.Symbol},Price:{querySymbolNewestPriceRModel.Price}");
             }

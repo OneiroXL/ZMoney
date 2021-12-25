@@ -14,9 +14,9 @@ using static ZBase.ZEnum.WebEnum;
 namespace ZOtherParty.Binance
 {
     /// <summary>
-    /// 币安服务
+    /// 币安HTTP服务
     /// </summary>
-    public class BinanceService : IService
+    public class BinanceHTTPService : IService
     {
         /// <summary>
         /// APIKey
