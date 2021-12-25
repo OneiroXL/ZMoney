@@ -162,7 +162,7 @@ namespace ZOtherParty.Binance
             spotTradeOrderParam.Symbol = "ETHUSDT";
             spotTradeOrderParam.Side = SPOTSideEuum.BUY;
             spotTradeOrderParam.Price = 2500m;
-            spotTradeOrderParam.Quantity
+            spotTradeOrderParam.Quantity;
 
             //地址
             string url = "/api/v3/order";
