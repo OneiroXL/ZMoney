@@ -179,5 +179,53 @@ namespace ZBase.Tools
             }
         }
         #endregion
+
+        #region 创建HMACSHA256Token
+        /// <summary>
+        /// 创建HMACSHA256Token
+        /// </summary>
+        /// <param name="message">加密内容</param>
+        /// <param name="secret">秘钥</param>
+        /// <returns></returns>
+        private string HMACSHA256CreateToken(string message, string secret)
+        {
+            secret = secret ?? "";
+            var encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = encoding.GetBytes(secret);
+            byte[] messageBytes = encoding.GetBytes(message);
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                return Convert.ToBase64String(hashmessage);
+            }
+        }
+        #endregion
+
+        #region 加密HMACSHA256
+        /// <summary>
+        /// 加密HMACSHA256
+        /// </summary>
+        /// <param name="message">加密内容</param>
+        /// <param name="secret">秘钥</param>
+        /// <returns></returns>
+        public static string HMACSHA256Encrypt(string message, string secret)
+        {
+            secret = secret ?? "";
+            var encoding = new System.Text.UTF8Encoding();
+            byte[] keyByte = encoding.GetBytes(secret);
+            byte[] messageBytes = encoding.GetBytes(message);
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < hashmessage.Length; i++)
+                {
+                    builder.Append(hashmessage[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+        #endregion
+
     }
 }
