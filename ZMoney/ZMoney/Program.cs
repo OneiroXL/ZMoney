@@ -22,10 +22,11 @@ namespace ZMoney
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            Console.WriteLine("BinanceServer PING:{0}", BinanceHTTPService.Ping());
-            Console.WriteLine("BinanceServer WalletServerStatus:{0}", BinanceHTTPService.WalletServerStatus());
-            Console.WriteLine("BinanceServer Time:{0}", BinanceHTTPService.GetServerTime());
+            BinanceSPOTHTTPService binanceSPOTHTTPService = new BinanceSPOTHTTPService();
 
+            Console.WriteLine("BinanceSPOTHTTPService SpotPing:{0}", binanceSPOTHTTPService.SpotPing());
+            Console.WriteLine("BinanceSPOTHTTPService GetSpotServerTime:{0}", binanceSPOTHTTPService.GetSpotServerTime());
+            Console.WriteLine("BinanceSPOTHTTPService WalletServerStatus:{0}", binanceSPOTHTTPService.WalletServerStatus().Status);
 
             ////现货下单
             //SpotTradeOrderPModel spotTradeOrderParam = new SpotTradeOrderPModel();
@@ -80,7 +81,7 @@ namespace ZMoney
             {
                 Thread.Sleep(1000);
 
-                QuerySymbolNewestPriceRModel querySymbolNewestPriceRModel = BinanceHTTPService.QuerySymbolNewestPrice(querySymbolNewestPricePModel);
+                QuerySymbolNewestPriceRModel querySymbolNewestPriceRModel = binanceSPOTHTTPService.SpotQuerySymbolNewestPrice(querySymbolNewestPricePModel);
 
                 Console.WriteLine($"Symbol:{querySymbolNewestPriceRModel.Symbol},Price:{querySymbolNewestPriceRModel.Price}");
             }

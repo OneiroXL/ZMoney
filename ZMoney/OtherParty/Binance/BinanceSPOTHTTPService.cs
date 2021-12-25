@@ -7,99 +7,40 @@ using System.Threading.Tasks;
 using ZBase.Tools;
 using ZModel.Binance.Param;
 using ZModel.Binance.Return;
-using ZOtherParty.I;
+using ZOtherParty.Base.BinanceBase;
 using static ZBase.ZEnum.BinanceEnum;
 using static ZBase.ZEnum.WebEnum;
 
 namespace ZOtherParty.Binance
 {
     /// <summary>
-    /// 币安HTTP服务
+    /// 币安 SPOT HTTP服务
     /// </summary>
-    public class BinanceHTTPService : IService
+    public class BinanceSPOTHTTPService : BinanceHTTPServiceBase
     {
-        /// <summary>
-        /// APIKey
-        /// </summary>
-        public static string APIKey { get => AppSettingHelper.GetConfig("Binance:APIKey"); }
-
-        /// <summary>
-        /// APISecret
-        /// </summary>
-        public static string APISecret { get => AppSettingHelper.GetConfig("Binance:APISecret"); }
-
         /// <summary>
         /// API地址
         /// </summary>
-        public static string APIAddress => "https://api1.binance.com";
+        public override string APIAddress => AppSettingHelper.GetConfig("Binance:SPOTAddress");
 
-        #region 处理WEB请求
+        #region 钱包系统状态
         /// <summary>
-        /// 处理WEB请求
+        /// 钱包系统状态
         /// </summary>
-        /// <param name="url">地址</param>
-        /// <param name="requestMethodTypeEnum">请求方式枚举</param>
-        /// <param name="isNeedSignature">是否需要验签</param>
-        private static string HandleWebRequest<PT>(string url, PT paramModel , RequestMethodTypeEnum requestMethodTypeEnum,bool isNeedSignature = true)
+        public WalletServerStatusRModel WalletServerStatus()
         {
-            //参数字典
-            Dictionary<string, string> paramDic = new Dictionary<string, string>();
-            if (paramModel != null) 
-            {
-                paramDic = ReflexionHelper.ClassFieldJsonPropertyToDictionary(paramModel);
-            }
-
-            if (isNeedSignature) 
-            {
-                //当前时间戳
-                paramDic["timestamp"] = DateTimeTool.GetTimeStamp(DateTime.Now).ToString().PadRight(13, '0');
-                //时间限制
-                paramDic["recvWindow"] = "5000";
-                //签名
-                paramDic["signature"] = EncryptiontTool.HMACSHA256Encrypt(WebTool.AssembleXWFUParam(paramDic), APISecret);
-            }
-
-            //请求头
-            Dictionary<string, string> headerDic = new Dictionary<string, string>();
-            headerDic["Content-Type"] = "application/x-www-form-urlencoded";
-            headerDic["X-MBX-APIKEY"] = APIKey;
-            //返回数据
-            string resposeStr = string.Empty;
-            //请求方式
-            switch (requestMethodTypeEnum) 
-            {
-                case RequestMethodTypeEnum.POST:
-                    {
-                        resposeStr = WebTool.Post(url, paramDic, headerDic);
-                    }
-                    break;
-                case RequestMethodTypeEnum.GET:
-                    {
-                        resposeStr = WebTool.Get(url,  paramDic , headerDic);
-                    }
-                    break;
-                case RequestMethodTypeEnum.PUT:
-                    {
-
-                    }
-                    break;
-                case RequestMethodTypeEnum.DELETE:
-                    {
-                        resposeStr = WebTool.DELETE(url, paramDic, headerDic);
-                    }
-                    break;
-            }
-
-            return resposeStr;
+            string url = "/sapi/v1/system/status";
+            string res = HandleWebRequest<Object>(APIAddress + url, null, RequestMethodTypeEnum.GET);
+            return JsonConvert.DeserializeObject<WalletServerStatusRModel>(res);
         }
 
         #endregion
 
-        #region PING
+        #region 现货PING
         /// <summary>
-        /// PING
+        /// 现货PING
         /// </summary>
-        public static bool Ping()
+        public bool SpotPing()
         {
             //地址
             string url = "/api/v3/ping";
@@ -114,27 +55,12 @@ namespace ZOtherParty.Binance
 
         #endregion
 
-        #region 钱包系统状态
+        #region 现货获取服务器时间
         /// <summary>
-        /// 钱包系统状态
-        /// </summary>
-        public static WalletServerStatusRModel WalletServerStatus()
-        {
-            string url = "/sapi/v1/system/status";
-            string res = HandleWebRequest<Object>(APIAddress + url, null, RequestMethodTypeEnum.GET);
-            return JsonConvert.DeserializeObject<WalletServerStatusRModel>(res);
-        }
-
-        #endregion
-
-
-
-        #region 获取服务器时间
-        /// <summary>
-        /// 获取服务器时间
+        /// 现货获取服务器时间
         /// </summary>
         /// <returns></returns>
-        public static DateTime GetServerTime()
+        public DateTime GetSpotServerTime()
         {
             //地址
             string url = "/api/v3/time";
@@ -143,7 +69,7 @@ namespace ZOtherParty.Binance
             //请求
             ServerTimeRModel serverTimeRModel = JsonConvert.DeserializeObject<ServerTimeRModel>(res);
 
-            if (serverTimeRModel == null) 
+            if (serverTimeRModel == null)
             {
                 return DateTime.MinValue;
             }
@@ -153,14 +79,14 @@ namespace ZOtherParty.Binance
 
         #endregion
 
-        #region 查询交易对当前最新价格
+        #region 查询现货交易对当前最新价格
 
         /// <summary>
-        /// 查询交易对当前最新价格
+        /// 查询现货交易对当前最新价格
         /// </summary>
         /// <param name="querySymbolNewestPricePModel"></param>
         /// <returns></returns>
-        public static QuerySymbolNewestPriceRModel QuerySymbolNewestPrice(QuerySymbolNewestPricePModel querySymbolNewestPricePModel)
+        public QuerySymbolNewestPriceRModel SpotQuerySymbolNewestPrice(QuerySymbolNewestPricePModel querySymbolNewestPricePModel)
         {
             //地址
             string url = "/api/v3/ticker/price";
@@ -174,14 +100,14 @@ namespace ZOtherParty.Binance
 
         #endregion
 
-        #region 获取交易对当前平均价格
+        #region 获取现货交易对当前平均价格
 
         /// <summary>
-        /// 获取交易对当前平均价格
+        /// 获取现货交易对当前平均价格
         /// </summary>
         /// <param name="querySymbolAvgPricePModel"></param>
         /// <returns></returns>
-        public static QuerySymbolAvgPriceRModel QuerySymbolAvgPrice(QuerySymbolAvgPricePModel querySymbolAvgPricePModel)
+        public QuerySymbolAvgPriceRModel SpotQuerySymbolAvgPrice(QuerySymbolAvgPricePModel querySymbolAvgPricePModel)
         {
             //地址
             string url = "/api/v3/avgPrice";
@@ -196,14 +122,12 @@ namespace ZOtherParty.Binance
 
         #endregion
 
-
-
         #region 现货下单
         /// <summary>
         /// 现货下单
         /// </summary>
         /// <param name="spotTradeOrderParam"></param>
-        public static SpotTradeOrderRModel SpotTradeOrder(SpotTradeOrderPModel spotTradeOrderParam) 
+        public SpotTradeOrderRModel SpotTradeOrder(SpotTradeOrderPModel spotTradeOrderParam) 
         {
             //地址
             string url = "/api/v3/order";
@@ -222,7 +146,7 @@ namespace ZOtherParty.Binance
         /// 取消订单
         /// </summary>
         /// <param name="spotCancelOrderPModel"></param>
-        public static SpotCancelOrderRModel SpotCancelOrder(SpotCancelOrderPModel spotCancelOrderPModel)
+        public SpotCancelOrderRModel SpotCancelOrder(SpotCancelOrderPModel spotCancelOrderPModel)
         {
             //地址
             string url = "/api/v3/order";
@@ -241,7 +165,7 @@ namespace ZOtherParty.Binance
         /// 查询现货订单信息
         /// </summary>
         /// <param name="spotCancelOrderPModel"></param>
-        public static SpotQueryOrderInfoRModel SpotQueryOrderInfo(SpotQueryOrderInfoPModel spotQueryOrderInfoPModel)
+        public SpotQueryOrderInfoRModel SpotQueryOrderInfo(SpotQueryOrderInfoPModel spotQueryOrderInfoPModel)
         {
             //地址
             string url = "/api/v3/order";
@@ -254,5 +178,6 @@ namespace ZOtherParty.Binance
         }
 
         #endregion
+
     }
 }
