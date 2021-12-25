@@ -21,39 +21,45 @@ namespace ZOtherParty.Binance
         /// <summary>
         /// APIKey
         /// </summary>
-        public static string APIKey { get => "DK3twQRbMOPsZRgkjbsnmgDc0FBnmaVZL5TqkoFYUIZBrpH5wvPSJPvR2GYVcSMG"; }
+        public static string APIKey { get => AppSettingHelper.GetConfig("Binance:APIKey"); }
 
         /// <summary>
         /// APISecret
         /// </summary>
-        public static string APISecret { get => "HlpAyQHVVvzUTi7tfzCnT7PYOFA0iD212YTiomnX8fPx5eBUKVNVx5fqST0qoHql"; }
+        public static string APISecret { get => AppSettingHelper.GetConfig("Binance:APISecret"); }
 
         /// <summary>
         /// API地址
         /// </summary>
         public static string APIAddress => "https://api1.binance.com";
 
-        #region 创建WEB客户端
+        #region 处理WEB请求
         /// <summary>
-        /// 创建WEB客户端
+        /// 处理WEB请求
         /// </summary>
         /// <param name="url">地址</param>
         /// <param name="requestMethodTypeEnum">请求方式枚举</param>
         /// <param name="isNeedParamModel">是否需要参数</param>
-        public static string HandleWebRequest(string url, object paramModel , RequestMethodTypeEnum requestMethodTypeEnum,bool isNeedParamModel = true)
+        public static string HandleWebRequest<PT>(string url, PT paramModel , RequestMethodTypeEnum requestMethodTypeEnum,bool isNeedParamModel = true)
         {
             //参数字典
             Dictionary<string, string> paramDic = new Dictionary<string, string>();
-            paramDic["timestamp"] = DateTimeTool.GetTimeStamp(DateTime.Now).ToString();
             if (paramModel != null) 
             {
                 paramDic = ReflexionHelper.ClassFieldJsonPropertyToDictionary(paramModel);
             }
+            //当前时间戳
+            paramDic["timestamp"] = DateTimeTool.GetTimeStamp(DateTime.Now).ToString().PadRight(13, '0');
+            //时间限制
+            paramDic["recvWindow"] = "5000";
             //签名
             paramDic["signature"] = EncryptiontTool.HMACSHA256Encrypt(WebTool.AssembleXWFUParam(paramDic), APISecret);
 
+
             //请求头
             Dictionary<string, string> headerDic = new Dictionary<string, string>();
+            headerDic["Content-Type"] = "application/x-www-form-urlencoded";
+            headerDic["X-MBX-APIKEY"] = APIKey;
             //返回数据
             string resposeStr = string.Empty;
             //请求方式
@@ -61,30 +67,22 @@ namespace ZOtherParty.Binance
             {
                 case RequestMethodTypeEnum.POST:
                     {
-                        headerDic["Content-Type"] = "application/json";
-                        headerDic["X-MBX-APIKEY"] = APIKey;
-
                         resposeStr = WebTool.Post(url, paramDic, headerDic);
                     }
                     break;
                 case RequestMethodTypeEnum.GET:
                     {
-                        headerDic["Content-Type"] = "application/x-www-form-urlencoded";
-                        headerDic["X-MBX-APIKEY"] = APIKey;
-
                         resposeStr = WebTool.Get(url, isNeedParamModel ? paramDic : null, headerDic);
                     }
                     break;
                 case RequestMethodTypeEnum.PUT:
                     {
-                        headerDic["Content-Type"] = "application/x-www-form-urlencoded";
-                        headerDic["X-MBX-APIKEY"] = APIKey;
+
                     }
                     break;
                 case RequestMethodTypeEnum.DELETE:
                     {
-                        headerDic["Content-Type"] = "application/x-www-form-urlencoded";
-                        headerDic["X-MBX-APIKEY"] = APIKey;
+
                     }
                     break;
             }
@@ -103,7 +101,7 @@ namespace ZOtherParty.Binance
             //地址
             string url = "/api/v3/ping";
 
-            var res = HandleWebRequest(APIAddress + url, null, RequestMethodTypeEnum.GET, false);
+            var res = HandleWebRequest<Object>(APIAddress + url, null, RequestMethodTypeEnum.GET, false);
             if (res != "{}")
             {
                 return false;
@@ -120,7 +118,7 @@ namespace ZOtherParty.Binance
         public static WalletServerStatusRModel WalletServerStatus()
         {
             string url = "/sapi/v1/system/status";
-            string res = HandleWebRequest(APIAddress + url, null, RequestMethodTypeEnum.GET);
+            string res = HandleWebRequest<Object>(APIAddress + url, null, RequestMethodTypeEnum.GET);
             return JsonConvert.DeserializeObject<WalletServerStatusRModel>(res);
         }
 
@@ -136,16 +134,16 @@ namespace ZOtherParty.Binance
             //地址
             string url = "/api/v3/time";
 
-            string res = HandleWebRequest(APIAddress + url, null, RequestMethodTypeEnum.GET);
+            string res = HandleWebRequest<Object>(APIAddress + url, null, RequestMethodTypeEnum.GET, false);
             //请求
             ServerTimeRModel serverTimeRModel = JsonConvert.DeserializeObject<ServerTimeRModel>(res);
 
             if (serverTimeRModel == null) 
             {
                 return DateTime.MinValue;
-            } 
+            }
 
-            return DateTimeTool.GetDateTime(serverTimeRModel.ServerTime);
+            return DateTimeTool.GetDateTime(serverTimeRModel.ServerTime / 1000);
         }
 
         #endregion
@@ -162,12 +160,15 @@ namespace ZOtherParty.Binance
             spotTradeOrderParam.Symbol = "ETHUSDT";
             spotTradeOrderParam.Side = SPOTSideEuum.BUY;
             spotTradeOrderParam.Price = 2500m;
-            spotTradeOrderParam.Quantity;
+            spotTradeOrderParam.Quantity = 0.005m;
+            spotTradeOrderParam.NewOrderRespType = NewOrderRespTypeEnum.FULL;
+            spotTradeOrderParam.Type = OrderTypesEnum.LIMIT;
+            spotTradeOrderParam.TimeInForce = TimeInForceEnum.GTC;
 
             //地址
             string url = "/api/v3/order";
 
-            string res = HandleWebRequest(APIAddress + url, null, RequestMethodTypeEnum.POST);
+            string res = HandleWebRequest<SpotTradeOrderPModel>(APIAddress + url, spotTradeOrderParam, RequestMethodTypeEnum.POST);
             //请求
             SpotTradeOrderRModel spotTradeOrderRModel = JsonConvert.DeserializeObject<SpotTradeOrderRModel>(res);
 
@@ -175,7 +176,7 @@ namespace ZOtherParty.Binance
 
         #endregion
 
-        #region MyRegion
+        #region 取消订单
 
         #endregion
     }

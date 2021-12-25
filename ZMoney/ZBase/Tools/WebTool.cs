@@ -66,17 +66,8 @@ namespace ZBase.Tools
         /// <returns></returns>
         public static string Post(string url, Dictionary<String, String> param, Dictionary<string, string> headers = null)
         {
-            #region 写日记
-            string parameterSt = "";
-            if (param.Count != 0) //将参数添加到json对象中
-            {
-                foreach (var item in param)
-                {
-                    parameterSt += "&" + item.Key + "=" + item.Value;
-                }
-            }
+            string parameterSt = AssembleXWFUParam(param);
 
-            #endregion
 
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest; //创建请求
             CookieContainer cookieContainer = new CookieContainer();
@@ -87,7 +78,7 @@ namespace ZBase.Tools
             request.Method = "POST"; //请求方式为post
             request.AllowAutoRedirect = true;
             request.MaximumResponseHeadersLength = 1024;
-            request.ContentType = "application/json";
+            request.ContentType = "application/x-www-form-urlencoded";
             if (headers != null)
             {
                 foreach (var item in headers)
@@ -95,19 +86,9 @@ namespace ZBase.Tools
                     request.Headers[item.Key] = item.Value;
                 }
             }
-
-            JObject json = new JObject();
-            if (param.Count != 0) //将参数添加到json对象中
-            {
-                foreach (var item in param)
-                {
-                    json.Add(item.Key, item.Value);
-                }
-            }
-            string jsonstring = json.ToString();//获得参数的json字符串
-            byte[] jsonbyte = Encoding.UTF8.GetBytes(jsonstring);
+            byte[] parameterStByte = Encoding.UTF8.GetBytes(parameterSt);
             Stream postStream = request.GetRequestStream();
-            postStream.Write(jsonbyte, 0, jsonbyte.Length);
+            postStream.Write(parameterStByte, 0, parameterStByte.Length);
             postStream.Close();
             //发送请求并获取相应回应数据       
             HttpWebResponse res;
@@ -126,7 +107,7 @@ namespace ZBase.Tools
 
         #endregion
 
-        #region  url为请求的网址，param为需要传递的参数
+        #region url为请求的网址，param为需要传递的参数
         /// <summary>
         /// url为请求的网址，param为需要传递的参数
         /// </summary>
@@ -134,18 +115,10 @@ namespace ZBase.Tools
         /// <param name="param"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static string Post(string url, Dictionary<String, object> param, Dictionary<string, string> headers = null)
+        public static string PostJosn(string url, string param, Dictionary<string, string> headers = null)
         {
             #region 写日记
-            string parameterSt = "";
-            if (param.Count != 0) //将参数添加到json对象中
-            {
-                foreach (var item in param)
-                {
-                    parameterSt += "&" + item.Key + "=" + item.Value;
-                }
-            }
-
+            string parameterSt = param;
             #endregion
 
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest; //创建请求
@@ -165,13 +138,7 @@ namespace ZBase.Tools
                     request.Headers[item.Key] = item.Value;
                 }
             }
-
-            string jsonstring = string.Empty;//获得参数的json字符串
-            if (param.Count != 0) //将参数添加到json对象中
-            {
-                jsonstring = JsonConvert.SerializeObject(param);
-            }
-
+            string jsonstring = param;//获得参数的json字符串
             byte[] jsonbyte = Encoding.UTF8.GetBytes(jsonstring);
             Stream postStream = request.GetRequestStream();
             postStream.Write(jsonbyte, 0, jsonbyte.Length);
@@ -256,57 +223,7 @@ namespace ZBase.Tools
         }
         #endregion
 
-        #region url为请求的网址，param为需要传递的参数
-        /// <summary>
-        /// url为请求的网址，param为需要传递的参数
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="param"></param>
-        /// <param name="headers"></param>
-        /// <returns></returns>
-        public static string Post(string url, string param, Dictionary<string, string> headers = null)
-        {
-            #region 写日记
-            string parameterSt = param;
-            #endregion
 
-            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest; //创建请求
-            CookieContainer cookieContainer = new CookieContainer();
-            request.CookieContainer = cookieContainer;
-            request.AllowAutoRedirect = true;
-            //request.AllowReadStreamBuffering = true;
-            request.MaximumResponseHeadersLength = 1024;
-            request.Method = "POST"; //请求方式为post
-            request.AllowAutoRedirect = true;
-            request.MaximumResponseHeadersLength = 1024;
-            request.ContentType = "application/json";
-            if (headers != null)
-            {
-                foreach (var item in headers)
-                {
-                    request.Headers[item.Key] = item.Value;
-                }
-            }
-            string jsonstring = param;//获得参数的json字符串
-            byte[] jsonbyte = Encoding.UTF8.GetBytes(jsonstring);
-            Stream postStream = request.GetRequestStream();
-            postStream.Write(jsonbyte, 0, jsonbyte.Length);
-            postStream.Close();
-            //发送请求并获取相应回应数据       
-            HttpWebResponse res;
-            try
-            {
-                res = (HttpWebResponse)request.GetResponse();
-            }
-            catch (WebException ex)
-            {
-                res = (HttpWebResponse)ex.Response;
-            }
-            StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.UTF8);
-            string content = sr.ReadToEnd(); //获得响应字符串
-            return content;
-        }
-        #endregion
 
         #region 获取IP地址
         /// <summary>

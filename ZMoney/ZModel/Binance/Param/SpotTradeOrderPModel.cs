@@ -64,25 +64,25 @@ namespace ZModel.Binance.Param
         /// type    ENUM YES 详见枚举定义：订单类型
         /// </summary>
         [JsonProperty(PropertyName = "type")]
-        public string Type { set; get; }
+        public OrderTypesEnum Type { set; get; }
 
         /// <summary>
         /// timeInForce ENUM NO  详见枚举定义：有效方式
         /// </summary>
         [JsonProperty(PropertyName = "timeInForce")]
-        public object TimeInForce { set; get; }
+        public TimeInForceEnum TimeInForce { set; get; }
 
         /// <summary>
         /// quantity    DECIMAL NO
         /// </summary>
         [JsonProperty(PropertyName = "quantity")]
-        public decimal Quantity { set; get; }
+        public decimal? Quantity { set; get; }
 
         /// <summary>
         /// quoteOrderQty DECIMAL NO
         /// </summary>
         [JsonProperty(PropertyName = "quoteOrderQty")]
-        public decimal QuoteOrderQty { set; get; }
+        public decimal? QuoteOrderQty { set; get; }
 
         /// <summary>
         /// price   DECIMAL NO
@@ -94,25 +94,25 @@ namespace ZModel.Binance.Param
         /// newClientOrderId STRING  NO 客户自定义的唯一订单ID。 如果未发送，则自动生成
         /// </summary>
         [JsonProperty(PropertyName = "newClientOrderId")]
-        public string NewClientOrderId { set; get; }
+        public string? NewClientOrderId { set; get; }
 
         /// <summary>
         /// stopPrice   DECIMAL NO  仅 STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, 和TAKE_PROFIT_LIMIT 需要此参数。
         /// </summary>
         [JsonProperty(PropertyName = "stopPrice")]
-        public decimal StopPrice { set; get; }
+        public decimal? StopPrice { set; get; }
 
         /// <summary>
         /// icebergQty DECIMAL NO 仅使用 LIMIT, STOP_LOSS_LIMIT, 和 TAKE_PROFIT_LIMIT 创建新的 iceberg 订单时需要此参数
         /// </summary>
         [JsonProperty(PropertyName = "icebergQty")]
-        public decimal IcebergQty { set; get; }
+        public decimal? IcebergQty { set; get; }
 
         /// <summary>
         /// newOrderRespType    ENUM NO  设置响应JSON。 ACK，RESULT或FULL； "MARKET"和" LIMIT"订单类型默认为"FULL"，所有其他订单默认为"ACK"。
         /// </summary>
         [JsonProperty(PropertyName = "newOrderRespType")]
-        public decimal NewOrderRespType { set; get; }
+        public NewOrderRespTypeEnum NewOrderRespType { set; get; }
 
         /// <summary>
         /// recvWindow LONG    NO 赋值不能大于 60000

@@ -138,13 +138,12 @@ namespace ZBase.Tools
             PropertyInfo[] peroperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (PropertyInfo property in peroperties)
             {
-                object[] objs = property.GetCustomAttributes(typeof(JsonProperty), true);
-                if (objs.Length > 0)
+                if (property.CustomAttributes.Count() > 0)
                 {
                     object value = property.GetValue(model, null);
                     if (value != null) 
                     {
-                        dictionary.Add(((JsonProperty)objs[0]).PropertyName, value.ToString());
+                        dictionary.Add(property.CustomAttributes.FirstOrDefault().NamedArguments.FirstOrDefault().TypedValue.Value.ToString(), value.ToString());
                     }
                 }
             }

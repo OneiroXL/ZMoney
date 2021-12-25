@@ -36,13 +36,11 @@ namespace ZBase.Tools
         /// <returns></returns>
         public static DateTime GetDateTime(long timestamp)
         {
-            //DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1)); 
-            //使用上面的方式会显示TimeZone已过时
-            DateTime dtStart = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1), TimeZoneInfo.Local);
-            //long lTime = long.Parse(timestamp + "0000000");
-            TimeSpan timeSpan = new TimeSpan(timestamp);
-            DateTime targetDt = dtStart.Add(timeSpan).AddHours(8);
-            return targetDt;
+            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            long lTime = ((long)timestamp * 10000000);
+            TimeSpan toNow = new TimeSpan(lTime);
+            DateTime targetDt = dtStart.Add(toNow);
+            return targetDt; 
         }
         #endregion
     }

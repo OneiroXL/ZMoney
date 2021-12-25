@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp.NetCore;
 using ZBase.Tools;
+using ZModel.Binance.Param;
 using ZOtherParty.Binance;
 
 namespace ZMoney
@@ -25,6 +26,7 @@ namespace ZMoney
             BinanceService.Ping();
             var a = BinanceService.WalletServerStatus();
             var b = BinanceService.GetServerTime();
+            BinanceService.SpotTradeOrder(new SpotTradeOrderPModel());
 
             var sadasd =  WebTool.Get("https://www.google.com/");
 

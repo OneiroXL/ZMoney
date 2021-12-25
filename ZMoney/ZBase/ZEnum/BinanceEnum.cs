@@ -126,7 +126,7 @@ namespace ZBase.ZEnum
         /// <summary>
         /// OCO 选择性委托订单 订单类型(orderTypes, type)
         /// </summary>
-        public enum SPOTOCOOrderTypesEnum 
+        public enum OrderTypesEnum 
         {
             /// <summary>
             /// 限价单
@@ -161,7 +161,7 @@ namespace ZBase.ZEnum
         /// <summary>
         ///OCO 订单返回类型 (newOrderRespType)
         /// </summary>
-        public enum SPOTOCONewOrderRespTypeEnum 
+        public enum NewOrderRespTypeEnum 
         {
             /// <summary>
             /// ACK
@@ -195,7 +195,7 @@ namespace ZBase.ZEnum
         /// <summary>
         /// 现货 有效方式 (timeInForce):
         /// </summary>
-        public enum SPOTTimeInForceEnum
+        public enum TimeInForceEnum
         {
             /// <summary>
             /// 成交为止 订单会一直有效，直到被成交或者取消。
