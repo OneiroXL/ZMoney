@@ -546,33 +546,31 @@
     ]
   },
   "packageFolders": {
-    "G:\\Server\\NuGet\\packages": {},
-    "F:\\VS\\VSShare\\NuGetPackages": {}
+    "C:\\Users\\Z-X-L\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Project\\NET\\ZMoney\\ZMoney\\ZBase\\ZBase.csproj",
+      "projectUniqueName": "F:\\Work\\C#\\Project\\Consoel\\Net\\ZMoney\\ZMoney\\ZMoney\\ZBase\\ZBase.csproj",
       "projectName": "ZBase",
-      "projectPath": "G:\\Project\\NET\\ZMoney\\ZMoney\\ZBase\\ZBase.csproj",
-      "packagesPath": "G:\\Server\\NuGet\\packages",
-      "outputPath": "G:\\Project\\NET\\ZMoney\\ZMoney\\ZBase\\obj\\",
+      "projectPath": "F:\\Work\\C#\\Project\\Consoel\\Net\\ZMoney\\ZMoney\\ZMoney\\ZBase\\ZBase.csproj",
+      "packagesPath": "C:\\Users\\Z-X-L\\.nuget\\packages\\",
+      "outputPath": "F:\\Work\\C#\\Project\\Consoel\\Net\\ZMoney\\ZMoney\\ZMoney\\ZBase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "F:\\VS\\VSShare\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\Z-X-L\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\NuGet.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://10.253.0.65:8888/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

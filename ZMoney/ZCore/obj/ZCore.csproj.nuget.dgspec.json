@@ -1,33 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Project\\NET\\ZMoney\\ZMoney\\ZCore\\ZCore.csproj": {}
+    "F:\\Work\\C#\\Project\\Consoel\\Net\\ZMoney\\ZMoney\\ZMoney\\ZCore\\ZCore.csproj": {}
   },
   "projects": {
-    "G:\\Project\\NET\\ZMoney\\ZMoney\\ZCore\\ZCore.csproj": {
+    "F:\\Work\\C#\\Project\\Consoel\\Net\\ZMoney\\ZMoney\\ZMoney\\ZCore\\ZCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Project\\NET\\ZMoney\\ZMoney\\ZCore\\ZCore.csproj",
+        "projectUniqueName": "F:\\Work\\C#\\Project\\Consoel\\Net\\ZMoney\\ZMoney\\ZMoney\\ZCore\\ZCore.csproj",
         "projectName": "ZCore",
-        "projectPath": "G:\\Project\\NET\\ZMoney\\ZMoney\\ZCore\\ZCore.csproj",
-        "packagesPath": "G:\\Server\\NuGet\\packages",
-        "outputPath": "G:\\Project\\NET\\ZMoney\\ZMoney\\ZCore\\obj\\",
+        "projectPath": "F:\\Work\\C#\\Project\\Consoel\\Net\\ZMoney\\ZMoney\\ZMoney\\ZCore\\ZCore.csproj",
+        "packagesPath": "C:\\Users\\Z-X-L\\.nuget\\packages\\",
+        "outputPath": "F:\\Work\\C#\\Project\\Consoel\\Net\\ZMoney\\ZMoney\\ZMoney\\ZCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "F:\\VS\\VSShare\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\Z-X-L\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\NuGet.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://10.253.0.65:8888/nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
