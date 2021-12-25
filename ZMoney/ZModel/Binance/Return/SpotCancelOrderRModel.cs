@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace ZModel.Binance.Return
 {
     /// <summary>
-    /// 鲜果交易订单返回信息
+    /// 现货取消订单返回信息
     /// </summary>
-    public class SpotTradeOrderRModel
+    public class SpotCancelOrderRModel
     {
         /// <summary>
         /// 交易对
@@ -35,12 +35,6 @@ namespace ZModel.Binance.Return
         /// </summary>
         [JsonProperty(PropertyName = "clientOrderId")]
         public string ClientOrderId { set; get; }
-
-        /// <summary>
-        /// 交易时间戳
-        /// </summary>
-        [JsonProperty(PropertyName = "transactTime")]
-        public double TransactTime { set; get; }
 
         /// <summary>
         /// 成交价格
@@ -90,40 +84,6 @@ namespace ZModel.Binance.Return
         [JsonProperty(PropertyName = "side")]
         public string Side { set; get; }
 
-        /// <summary>
-        /// 订单中交易的信息
-        /// </summary>
-        [JsonProperty(PropertyName = "fills")]
-        public List<SpotTradeOrderFillsModel> SpotTradeOrderFillsModelList { set; get; }
-    }
 
-    /// <summary>
-    /// 订单中交易的信息
-    /// </summary>
-    public class SpotTradeOrderFillsModel 
-    {
-        /// <summary>
-        /// 成交价格
-        /// </summary>
-        [JsonProperty(PropertyName = "price")]
-        public decimal Price { set; get; }
-
-        /// <summary>
-        /// 交易的订单数量
-        /// </summary>
-        [JsonProperty(PropertyName = "qty")]
-        public decimal Qty { set; get; }
-
-        /// <summary>
-        /// 手续费金额
-        /// </summary>
-        [JsonProperty(PropertyName = "commission")]
-        public decimal Commission { set; get; }
-
-        /// <summary>
-        /// 手续费的币种
-        /// </summary>
-        [JsonProperty(PropertyName = "commissionAsset")]
-        public decimal CommissionAsset { set; get; }
     }
 }

@@ -56,9 +56,9 @@ namespace ZBase.Tools
         }
         #endregion
 
-        #region url为请求的网址，param为需要传递的参数
+        #region url为请求的网址，param为需要传递的参数 (POST)
         /// <summary>
-        /// url为请求的网址，param为需要传递的参数
+        ///  url为请求的网址，param为需要传递的参数 (POST)
         /// </summary>
         /// <param name="url"></param>
         /// <param name="param"></param>
@@ -76,6 +76,57 @@ namespace ZBase.Tools
             //request.AllowReadStreamBuffering = true;
             request.MaximumResponseHeadersLength = 1024;
             request.Method = "POST"; //请求方式为post
+            request.AllowAutoRedirect = true;
+            request.MaximumResponseHeadersLength = 1024;
+            request.ContentType = "application/x-www-form-urlencoded";
+            if (headers != null)
+            {
+                foreach (var item in headers)
+                {
+                    request.Headers[item.Key] = item.Value;
+                }
+            }
+            byte[] parameterStByte = Encoding.UTF8.GetBytes(parameterSt);
+            Stream postStream = request.GetRequestStream();
+            postStream.Write(parameterStByte, 0, parameterStByte.Length);
+            postStream.Close();
+            //发送请求并获取相应回应数据       
+            HttpWebResponse res;
+            try
+            {
+                res = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                res = (HttpWebResponse)ex.Response;
+            }
+            StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.UTF8);
+            string content = sr.ReadToEnd(); //获得响应字符串
+            return content;
+        }
+
+        #endregion
+
+        #region url为请求的网址，param为需要传递的参数 (DELETE)
+        /// <summary>
+        ///  url为请求的网址，param为需要传递的参数 (DELETE)
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="param"></param>
+        /// <param name="headers"></param>
+        /// <returns></returns>
+        public static string DELETE(string url, Dictionary<String, String> param, Dictionary<string, string> headers = null)
+        {
+            string parameterSt = AssembleXWFUParam(param);
+
+
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest; //创建请求
+            CookieContainer cookieContainer = new CookieContainer();
+            request.CookieContainer = cookieContainer;
+            request.AllowAutoRedirect = true;
+            //request.AllowReadStreamBuffering = true;
+            request.MaximumResponseHeadersLength = 1024;
+            request.Method = "DELETE"; //请求方式为post
             request.AllowAutoRedirect = true;
             request.MaximumResponseHeadersLength = 1024;
             request.ContentType = "application/x-www-form-urlencoded";

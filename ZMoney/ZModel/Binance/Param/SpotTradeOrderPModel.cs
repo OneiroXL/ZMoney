@@ -113,11 +113,5 @@ namespace ZModel.Binance.Param
         /// </summary>
         [JsonProperty(PropertyName = "newOrderRespType")]
         public NewOrderRespTypeEnum NewOrderRespType { set; get; }
-
-        /// <summary>
-        /// recvWindow LONG    NO 赋值不能大于 60000
-        /// </summary>
-        [JsonProperty(PropertyName = "recvWindow")]
-        public long RecvWindow { set; get; }
     }
 }

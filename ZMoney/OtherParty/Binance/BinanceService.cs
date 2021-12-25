@@ -39,8 +39,8 @@ namespace ZOtherParty.Binance
         /// </summary>
         /// <param name="url">地址</param>
         /// <param name="requestMethodTypeEnum">请求方式枚举</param>
-        /// <param name="isNeedParamModel">是否需要参数</param>
-        public static string HandleWebRequest<PT>(string url, PT paramModel , RequestMethodTypeEnum requestMethodTypeEnum,bool isNeedParamModel = true)
+        /// <param name="isNeedSignature">是否需要验签</param>
+        private static string HandleWebRequest<PT>(string url, PT paramModel , RequestMethodTypeEnum requestMethodTypeEnum,bool isNeedSignature = true)
         {
             //参数字典
             Dictionary<string, string> paramDic = new Dictionary<string, string>();
@@ -48,13 +48,16 @@ namespace ZOtherParty.Binance
             {
                 paramDic = ReflexionHelper.ClassFieldJsonPropertyToDictionary(paramModel);
             }
-            //当前时间戳
-            paramDic["timestamp"] = DateTimeTool.GetTimeStamp(DateTime.Now).ToString().PadRight(13, '0');
-            //时间限制
-            paramDic["recvWindow"] = "5000";
-            //签名
-            paramDic["signature"] = EncryptiontTool.HMACSHA256Encrypt(WebTool.AssembleXWFUParam(paramDic), APISecret);
 
+            if (isNeedSignature) 
+            {
+                //当前时间戳
+                paramDic["timestamp"] = DateTimeTool.GetTimeStamp(DateTime.Now).ToString().PadRight(13, '0');
+                //时间限制
+                paramDic["recvWindow"] = "5000";
+                //签名
+                paramDic["signature"] = EncryptiontTool.HMACSHA256Encrypt(WebTool.AssembleXWFUParam(paramDic), APISecret);
+            }
 
             //请求头
             Dictionary<string, string> headerDic = new Dictionary<string, string>();
@@ -72,7 +75,7 @@ namespace ZOtherParty.Binance
                     break;
                 case RequestMethodTypeEnum.GET:
                     {
-                        resposeStr = WebTool.Get(url, isNeedParamModel ? paramDic : null, headerDic);
+                        resposeStr = WebTool.Get(url,  paramDic , headerDic);
                     }
                     break;
                 case RequestMethodTypeEnum.PUT:
@@ -82,7 +85,7 @@ namespace ZOtherParty.Binance
                     break;
                 case RequestMethodTypeEnum.DELETE:
                     {
-
+                        resposeStr = WebTool.DELETE(url, paramDic, headerDic);
                     }
                     break;
             }
@@ -124,6 +127,8 @@ namespace ZOtherParty.Binance
 
         #endregion
 
+
+
         #region 获取服务器时间
         /// <summary>
         /// 获取服务器时间
@@ -148,35 +153,105 @@ namespace ZOtherParty.Binance
 
         #endregion
 
+        #region 查询交易对当前最新价格
+
+        /// <summary>
+        /// 查询交易对当前最新价格
+        /// </summary>
+        /// <param name="querySymbolNewestPricePModel"></param>
+        /// <returns></returns>
+        public static QuerySymbolNewestPriceRModel QuerySymbolNewestPrice(QuerySymbolNewestPricePModel querySymbolNewestPricePModel)
+        {
+            //地址
+            string url = "/api/v3/ticker/price";
+
+            string res = HandleWebRequest(APIAddress + url, querySymbolNewestPricePModel, RequestMethodTypeEnum.GET, false);
+            //请求
+            QuerySymbolNewestPriceRModel querySymbolNewestPriceRModel = JsonConvert.DeserializeObject<QuerySymbolNewestPriceRModel>(res);
+
+            return querySymbolNewestPriceRModel;
+        }
+
+        #endregion
+
+        #region 获取交易对当前平均价格
+
+        /// <summary>
+        /// 获取交易对当前平均价格
+        /// </summary>
+        /// <param name="querySymbolAvgPricePModel"></param>
+        /// <returns></returns>
+        public static QuerySymbolAvgPriceRModel QuerySymbolAvgPrice(QuerySymbolAvgPricePModel querySymbolAvgPricePModel)
+        {
+            //地址
+            string url = "/api/v3/avgPrice";
+
+            string res = HandleWebRequest(APIAddress + url, querySymbolAvgPricePModel, RequestMethodTypeEnum.GET, false);
+            //请求
+            QuerySymbolAvgPriceRModel querySymbolAvgPriceRModel = JsonConvert.DeserializeObject<QuerySymbolAvgPriceRModel>(res);
+
+            return querySymbolAvgPriceRModel;
+        }
+
+
+        #endregion
+
+
+
         #region 现货下单
         /// <summary>
         /// 现货下单
         /// </summary>
         /// <param name="spotTradeOrderParam"></param>
-        public static void SpotTradeOrder(SpotTradeOrderPModel spotTradeOrderParam) 
+        public static SpotTradeOrderRModel SpotTradeOrder(SpotTradeOrderPModel spotTradeOrderParam) 
         {
-            spotTradeOrderParam = new SpotTradeOrderPModel();
-
-            spotTradeOrderParam.Symbol = "ETHUSDT";
-            spotTradeOrderParam.Side = SPOTSideEuum.BUY;
-            spotTradeOrderParam.Price = 2500m;
-            spotTradeOrderParam.Quantity = 0.005m;
-            spotTradeOrderParam.NewOrderRespType = NewOrderRespTypeEnum.FULL;
-            spotTradeOrderParam.Type = OrderTypesEnum.LIMIT;
-            spotTradeOrderParam.TimeInForce = TimeInForceEnum.GTC;
-
             //地址
             string url = "/api/v3/order";
 
-            string res = HandleWebRequest<SpotTradeOrderPModel>(APIAddress + url, spotTradeOrderParam, RequestMethodTypeEnum.POST);
+            string res = HandleWebRequest(APIAddress + url, spotTradeOrderParam, RequestMethodTypeEnum.POST);
             //请求
             SpotTradeOrderRModel spotTradeOrderRModel = JsonConvert.DeserializeObject<SpotTradeOrderRModel>(res);
 
+            return spotTradeOrderRModel;
         }
 
         #endregion
 
-        #region 取消订单
+        #region 现货取消订单
+        /// <summary>
+        /// 取消订单
+        /// </summary>
+        /// <param name="spotCancelOrderPModel"></param>
+        public static SpotCancelOrderRModel SpotCancelOrder(SpotCancelOrderPModel spotCancelOrderPModel)
+        {
+            //地址
+            string url = "/api/v3/order";
+
+            string res = HandleWebRequest(APIAddress + url, spotCancelOrderPModel, RequestMethodTypeEnum.DELETE);
+            //请求
+            SpotCancelOrderRModel spotCancelOrderRModel = JsonConvert.DeserializeObject<SpotCancelOrderRModel>(res);
+
+            return spotCancelOrderRModel;
+        }
+        #endregion
+
+        #region 查询现货订单信息
+
+        /// <summary>
+        /// 查询现货订单信息
+        /// </summary>
+        /// <param name="spotCancelOrderPModel"></param>
+        public static SpotQueryOrderInfoRModel SpotQueryOrderInfo(SpotQueryOrderInfoPModel spotQueryOrderInfoPModel)
+        {
+            //地址
+            string url = "/api/v3/order";
+            //请求
+            string res = HandleWebRequest(APIAddress + url, spotQueryOrderInfoPModel, RequestMethodTypeEnum.GET);
+      
+            SpotQueryOrderInfoRModel spotQueryOrderInfoRModel = JsonConvert.DeserializeObject<SpotQueryOrderInfoRModel>(res);
+
+            return spotQueryOrderInfoRModel;
+        }
 
         #endregion
     }

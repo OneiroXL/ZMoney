@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace ZModel.Binance.Return
 {
     /// <summary>
-    /// 鲜果交易订单返回信息
+    /// 查询订单返回信息
     /// </summary>
-    public class SpotTradeOrderRModel
+    public class SpotQueryOrderInfoRModel
     {
         /// <summary>
         /// 交易对
@@ -35,12 +35,6 @@ namespace ZModel.Binance.Return
         /// </summary>
         [JsonProperty(PropertyName = "clientOrderId")]
         public string ClientOrderId { set; get; }
-
-        /// <summary>
-        /// 交易时间戳
-        /// </summary>
-        [JsonProperty(PropertyName = "transactTime")]
-        public double TransactTime { set; get; }
 
         /// <summary>
         /// 成交价格
@@ -91,39 +85,39 @@ namespace ZModel.Binance.Return
         public string Side { set; get; }
 
         /// <summary>
-        /// 订单中交易的信息
+        /// 止损价格
         /// </summary>
-        [JsonProperty(PropertyName = "fills")]
-        public List<SpotTradeOrderFillsModel> SpotTradeOrderFillsModelList { set; get; }
-    }
-
-    /// <summary>
-    /// 订单中交易的信息
-    /// </summary>
-    public class SpotTradeOrderFillsModel 
-    {
-        /// <summary>
-        /// 成交价格
-        /// </summary>
-        [JsonProperty(PropertyName = "price")]
-        public decimal Price { set; get; }
+        [JsonProperty(PropertyName = "stopPrice")]
+        public decimal stopPrice { set; get; }
 
         /// <summary>
-        /// 交易的订单数量
+        /// 冰山数量
         /// </summary>
-        [JsonProperty(PropertyName = "qty")]
-        public decimal Qty { set; get; }
+        [JsonProperty(PropertyName = "icebergQty")]
+        public decimal IcebergQty { set; get; }
 
         /// <summary>
-        /// 手续费金额
+        /// 订单时间
         /// </summary>
-        [JsonProperty(PropertyName = "commission")]
-        public decimal Commission { set; get; }
+        [JsonProperty(PropertyName = "time")]
+        public double Time { set; get; }
 
         /// <summary>
-        /// 手续费的币种
+        ///  最后更新时间
         /// </summary>
-        [JsonProperty(PropertyName = "commissionAsset")]
-        public decimal CommissionAsset { set; get; }
+        [JsonProperty(PropertyName = "updateTime")]
+        public double UpdateTime { set; get; }
+
+        /// <summary>
+        /// 订单是否出现在orderbook中
+        /// </summary>
+        [JsonProperty(PropertyName = "isWorking")]
+        public string IsWorking { set; get; }
+
+        /// <summary>
+        /// 原始的交易金额
+        /// </summary>
+        [JsonProperty(PropertyName = "origQuoteOrderQty")]
+        public decimal OrigQuoteOrderQty { set; get; }
     }
 }

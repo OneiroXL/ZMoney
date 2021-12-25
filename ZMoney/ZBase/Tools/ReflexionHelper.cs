@@ -143,7 +143,7 @@ namespace ZBase.Tools
                     object value = property.GetValue(model, null);
                     if (value != null) 
                     {
-                        dictionary.Add(property.CustomAttributes.FirstOrDefault().NamedArguments.FirstOrDefault().TypedValue.Value.ToString(), value.ToString());
+                        dictionary.Add(property.CustomAttributes.Where(p=>p.AttributeType.FullName == "Newtonsoft.Json.JsonPropertyAttribute").FirstOrDefault().NamedArguments.FirstOrDefault().TypedValue.Value.ToString(), value.ToString());
                     }
                 }
             }
