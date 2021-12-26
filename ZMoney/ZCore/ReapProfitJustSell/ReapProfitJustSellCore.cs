@@ -91,7 +91,7 @@ namespace ZCore.ReapProfitJustSell
                     sellSpotTradeOrderParam.Price = buySpotTradeOrderRModel.Price + profitCoefficient;
 
                     //卖出
-                    SpotTradeOrderRModel sellSpotTradeOrderRModel = isDebug ? new SpotTradeOrderRModel() { Status = SPOTTradestatusEnum.NEW, CummulativeQuoteQty = (sellSpotTradeOrderParam.Quantity * sellSpotTradeOrderParam.Price).Value } : binanceSPOTHTTPService.SpotTradeOrder(sellSpotTradeOrderParam);
+                    SpotTradeOrderRModel sellSpotTradeOrderRModel = isDebug ? new SpotTradeOrderRModel() { Status = SPOTTradestatusEnum.NEW,Price = sellSpotTradeOrderParam.Price, CummulativeQuoteQty = (sellSpotTradeOrderParam.Quantity * sellSpotTradeOrderParam.Price).Value } : binanceSPOTHTTPService.SpotTradeOrder(sellSpotTradeOrderParam);
                     //计算卖出手续费
                     decimal sellCommission = sellSpotTradeOrderRModel.CummulativeQuoteQty * BinanceConstant.SPOTServiceCharge;
                     ConsoleTool.WriteLine(string.Format("当前委托卖出交易对:{0},当前交易对交易价格:{1},交易状态:{2},交易订单号:{3},交易手续费：{4}", sellSpotTradeOrderRModel.Symbol, sellSpotTradeOrderRModel.Price, sellSpotTradeOrderRModel.Status, sellSpotTradeOrderRModel.OrderId, sellCommission), ConsoleColor.Yellow);
