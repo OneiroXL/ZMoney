@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ZBase.ZEnum.BinanceEnum;
 
 namespace ZModel.Binance.Return
 {
@@ -64,7 +65,7 @@ namespace ZModel.Binance.Return
         /// 订单状态
         /// </summary>
         [JsonProperty(PropertyName = "status")]
-        public string Status { set; get; }
+        public SPOTTradestatusEnum Status { set; get; }
 
         /// <summary>
         /// 订单的时效方式
