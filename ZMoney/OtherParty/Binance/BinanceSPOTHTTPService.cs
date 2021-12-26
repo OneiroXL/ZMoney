@@ -23,6 +23,11 @@ namespace ZOtherParty.Binance
         /// </summary>
         public override string APIAddress => AppSettingHelper.GetConfig("Binance:SPOTAddress");
 
+        /// <summary>
+        /// 交易规范信息
+        /// </summary>
+        private static Dictionary<DateTime, QueryExchangeInfoRModel> QueryExchangeInfoRModelDic = new Dictionary<DateTime, QueryExchangeInfoRModel>();
+
         #region 钱包系统状态
         /// <summary>
         /// 钱包系统状态
@@ -75,6 +80,31 @@ namespace ZOtherParty.Binance
             }
 
             return DateTimeTool.GetDateTime(serverTimeRModel.ServerTime / 1000);
+        }
+
+        #endregion
+
+        #region 查询交易规范信息
+        /// <summary>
+        /// 查询交易规范信息
+        /// </summary>
+        /// <param name="queryExchangeInfoPModel"></param>
+        /// <returns></returns>
+        public QueryExchangeInfoRModel QueryExchangeInfo() 
+        {
+            //地址
+            string url = "/api/v3/exchangeInfo";
+
+            if (QueryExchangeInfoRModelDic.Count == 0) 
+            {
+                string res = HandleWebRequest(APIAddress + url, new QueryExchangeInfoPModel(), RequestMethodTypeEnum.GET, false);
+                //请求
+                QueryExchangeInfoRModel queryExchangeInfoRModel = JsonConvert.DeserializeObject<QueryExchangeInfoRModel>(res);
+
+                QueryExchangeInfoRModelDic[DateTime.Now] = queryExchangeInfoRModel;
+            }
+
+            return QueryExchangeInfoRModelDic.FirstOrDefault().Value;
         }
 
         #endregion

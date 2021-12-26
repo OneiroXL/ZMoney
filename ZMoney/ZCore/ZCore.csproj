@@ -10,4 +10,8 @@
     <Folder Include="TriangleStrategy\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OtherParty\ZOtherParty.csproj" />
+  </ItemGroup>
+
 </Project>

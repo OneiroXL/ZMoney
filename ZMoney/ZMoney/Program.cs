@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp.NetCore;
 using ZBase.Tools;
+using ZCore.ReapProfitJustSell;
 using ZModel.Binance.Param;
 using ZModel.Binance.Return;
 using ZOtherParty.Binance;
@@ -24,68 +25,15 @@ namespace ZMoney
         {
             BinanceSPOTHTTPService binanceSPOTHTTPService = new BinanceSPOTHTTPService();
 
-            Console.WriteLine("BinanceSPOTHTTPService SpotPing:{0}", binanceSPOTHTTPService.SpotPing());
-            Console.WriteLine("BinanceSPOTHTTPService GetSpotServerTime:{0}", binanceSPOTHTTPService.GetSpotServerTime());
-            Console.WriteLine("BinanceSPOTHTTPService WalletServerStatus:{0}", binanceSPOTHTTPService.WalletServerStatus().Status);
+            ConsoleTool.WriteLine("币安系统信息:", ConsoleColor.White);
+            ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService SpotPing:{0}", binanceSPOTHTTPService.SpotPing()), ConsoleColor.Blue);
+            ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService GetSpotServerTime:{0}", binanceSPOTHTTPService.GetSpotServerTime()), ConsoleColor.Blue);
+            ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService WalletServerStatus:{0}", binanceSPOTHTTPService.WalletServerStatus().Status), ConsoleColor.Blue);
+            ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo:{0}", binanceSPOTHTTPService.QueryExchangeInfo()), ConsoleColor.Blue);
+            ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo.SymbolModelList.Count:{0}", binanceSPOTHTTPService.QueryExchangeInfo().SymbolModelList.Count), ConsoleColor.Blue);
+            ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo.SymbolModelSpotTradingAllowedList.Count:{0}", binanceSPOTHTTPService.QueryExchangeInfo().SymbolModelList.Where(p => p.IsSpotTradingAllowed).Count()), ConsoleColor.Blue);
 
-            ////现货下单
-            //SpotTradeOrderPModel spotTradeOrderParam = new SpotTradeOrderPModel();
-
-            //spotTradeOrderParam.Symbol = "ETHUSDT";
-            //spotTradeOrderParam.Side = SPOTSideEuum.BUY;
-            //spotTradeOrderParam.Price = 2500m;
-            //spotTradeOrderParam.Quantity = 0.005m;
-            //spotTradeOrderParam.NewOrderRespType = NewOrderRespTypeEnum.FULL;
-            //spotTradeOrderParam.Type = OrderTypesEnum.LIMIT;
-            //spotTradeOrderParam.TimeInForce = TimeInForceEnum.GTC;
-            //SpotTradeOrderRModel spotTradeOrderRModel = BinanceService.SpotTradeOrder(spotTradeOrderParam);
-
-            ////查询现货订单信息
-            //SpotQueryOrderInfoPModel spotQueryOrderInfoPModel = new SpotQueryOrderInfoPModel();
-            //spotQueryOrderInfoPModel.Symbol = "ETHUSDT";
-            //spotQueryOrderInfoPModel.OrderId = spotTradeOrderRModel.OrderId;
-            //spotQueryOrderInfoPModel.OrigClientOrderId = spotTradeOrderRModel.ClientOrderId;
-
-
-            //SpotQueryOrderInfoRModel spotQueryOrderInfoRModel = BinanceService.SpotQueryOrderInfo(spotQueryOrderInfoPModel);
-
-
-            ////取消下单
-            //SpotCancelOrderPModel spotCancelOrderPModel = new SpotCancelOrderPModel();
-
-            //spotCancelOrderPModel.Symbol = "ETHUSDT";
-            //spotCancelOrderPModel.OrderId = spotTradeOrderRModel.OrderId;
-            //spotCancelOrderPModel.OrigClientOrderId = spotTradeOrderRModel.ClientOrderId;
-
-            //SpotCancelOrderRModel spotCancelOrderRModel = BinanceService.SpotCancelOrder(spotCancelOrderPModel);
-
-
-            //获取交易对平均价格
-            //QuerySymbolAvgPricePModel querySymbolAvgPricePModel = new QuerySymbolAvgPricePModel();
-            //querySymbolAvgPricePModel.Symbol = "ETHUSDT";
-
-            //while (true)//int i = 0;i <= 10;i++
-            //{
-            //    Thread.Sleep(1000);
-
-            //    QuerySymbolAvgPriceRModel querySymbolAvgPriceRModel = BinanceService.QuerySymbolAvgPrice(querySymbolAvgPricePModel);
-
-            //    Console.WriteLine($"Mins:{querySymbolAvgPriceRModel.Mins},Price:{querySymbolAvgPriceRModel.Price}");
-            //}
-
-            //获取交易对最新价格
-            QuerySymbolNewestPricePModel querySymbolNewestPricePModel = new QuerySymbolNewestPricePModel();
-            querySymbolNewestPricePModel.Symbol = "ETHUSDT";
-
-            while (true)//int i = 0;i <= 10;i++
-            {
-                Thread.Sleep(1000);
-
-                QuerySymbolNewestPriceRModel querySymbolNewestPriceRModel = binanceSPOTHTTPService.SpotQuerySymbolNewestPrice(querySymbolNewestPricePModel);
-
-                Console.WriteLine($"Symbol:{querySymbolNewestPriceRModel.Symbol},Price:{querySymbolNewestPriceRModel.Price}");
-            }
-
+            ReapProfitJustSellCore.SPOTBinance(true);
 
             //WebSocket webSocket = new WebSocket("wss://stream.binance.com:9443");
 
@@ -102,6 +50,7 @@ namespace ZMoney
             //byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(a);
 
             //webSocket.Send(byteArray);
+
         }
     }
 }

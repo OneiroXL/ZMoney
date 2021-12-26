@@ -22,5 +22,6 @@ namespace ZBase.ZEnum
             PUT,
             DELETE,
         }
+
     }
 }

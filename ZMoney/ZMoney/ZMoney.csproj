@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OtherParty\ZOtherParty.csproj" />
+    <ProjectReference Include="..\ZCore\ZCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
