@@ -103,6 +103,13 @@ namespace ZModel.Binance.Return
     /// </summary>
     public class SpotTradeOrderFillsModel 
     {
+
+        /// <summary>
+        /// 交易Id
+        /// </summary>
+        [JsonProperty(PropertyName = "tradeId")]
+        public double TradeId { set; get; }
+
         /// <summary>
         /// 成交价格
         /// </summary>
@@ -125,6 +132,6 @@ namespace ZModel.Binance.Return
         /// 手续费的币种
         /// </summary>
         [JsonProperty(PropertyName = "commissionAsset")]
-        public decimal CommissionAsset { set; get; }
+        public string CommissionAsset { set; get; }
     }
 }

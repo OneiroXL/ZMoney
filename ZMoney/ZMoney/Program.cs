@@ -33,7 +33,40 @@ namespace ZMoney
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo.SymbolModelList.Count:{0}", binanceSPOTHTTPService.QueryExchangeInfo().SymbolModelList.Count), ConsoleColor.Blue);
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo.SymbolModelSpotTradingAllowedList.Count:{0}", binanceSPOTHTTPService.QueryExchangeInfo().SymbolModelList.Where(p => p.IsSpotTradingAllowed).Count()), ConsoleColor.Blue);
 
-            ReapProfitJustSellCore.SPOTBinance(true);
+            ReapProfitJustSellCore.SPOTBinance("SANDUSDT", false);
+
+            //while (true) 
+            //{
+
+            //    //获取实时价格
+            //    QuerySymbolNewestPricePModel querySymbolNewestPricePModel = new QuerySymbolNewestPricePModel();
+            //    querySymbolNewestPricePModel.Symbol = "SANDUSDT";
+            //    QuerySymbolNewestPriceRModel querySymbolNewestPriceRModel = binanceSPOTHTTPService.SpotQuerySymbolNewestPrice(querySymbolNewestPricePModel);
+            //    ConsoleTool.WriteLine(String.Format("当前交易对:{0},当前交易对最新价格:{1}", querySymbolNewestPriceRModel.Symbol, querySymbolNewestPriceRModel.Price), ConsoleColor.Yellow);
+
+            //    //现货下单(买入)
+            //    SpotTradeOrderPModel buySpotTradeOrderPModel = new SpotTradeOrderPModel();
+
+            //    buySpotTradeOrderPModel.Symbol = "SANDUSDT";
+            //    buySpotTradeOrderPModel.Side = SPOTSideEuum.BUY;
+            //    buySpotTradeOrderPModel.Price = querySymbolNewestPriceRModel.Price;
+            //    buySpotTradeOrderPModel.Quantity = 2M;
+            //    buySpotTradeOrderPModel.NewOrderRespType = NewOrderRespTypeEnum.FULL;
+            //    buySpotTradeOrderPModel.Type = OrderTypesEnum.LIMIT;
+            //    buySpotTradeOrderPModel.TimeInForce = TimeInForceEnum.FOK;
+            //    SpotTradeOrderRModel buySpotTradeOrderRModel = binanceSPOTHTTPService.SpotTradeOrder(buySpotTradeOrderPModel);
+            //    var buyCommission = buySpotTradeOrderRModel.SpotTradeOrderFillsModelList.Sum(p => p.Commission) * buySpotTradeOrderPModel.Price;
+            //    ConsoleTool.WriteLine(String.Format("当前买入交易对:{0},当前交易对交易价格:{1},当前交易对交易数量{2},交易状态:{3},交易订单号:{4},交易手续费：{5}", buySpotTradeOrderPModel.Symbol, buySpotTradeOrderRModel.Price, buySpotTradeOrderRModel.ExecutedQty, buySpotTradeOrderRModel.Status, buySpotTradeOrderRModel.OrderId, buyCommission), ConsoleColor.Yellow);
+
+            //    Thread.Sleep(1000);
+
+            //    if (buySpotTradeOrderRModel.Status == SPOTTradestatusEnum.FILLED || SPOTTradestatusEnum.NEW == buySpotTradeOrderRModel.Status) 
+            //    {
+            //        break;
+            //    }
+            //}
+
+          
 
             //WebSocket webSocket = new WebSocket("wss://stream.binance.com:9443");
 
