@@ -135,9 +135,6 @@ namespace ZCore.ReapProfitJustSell
                             //停止计时
                             sw.Stop();
                             ConsoleTool.WriteLine($"当前交易用时:{sw.Elapsed.TotalSeconds}秒",ConsoleColor.Red);
-
-                            //跳出
-                            break;
                         }
                     }
                 }
