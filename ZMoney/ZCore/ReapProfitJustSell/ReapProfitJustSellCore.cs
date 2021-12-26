@@ -135,13 +135,15 @@ namespace ZCore.ReapProfitJustSell
                             //停止计时
                             sw.Stop();
                             ConsoleTool.WriteLine($"当前交易用时:{sw.Elapsed.TotalSeconds}秒",ConsoleColor.Red);
+
+                            //跳出
+                            break;
                         }
                     }
                 }
 
                 ConsoleTool.WriteLine($"累计收益:{cumulativeProfit}",ConsoleColor.DarkMagenta);
                 ConsoleTool.WriteLine("OOOOOOHOHOHHOHOHOOH 完成交易");
-                break;
             }
         }
 
