@@ -57,7 +57,6 @@ namespace ZCore.ReapProfitJustSell
                 //计算价格和数量
                 decimal quantity = Math.Ceiling(BinanceConstant.MinTradingVolume / querySymbolNewestPriceRModel.Price);
 
-
                 //现货下单(买入)
                 SpotTradeOrderPModel buySpotTradeOrderPModel = new SpotTradeOrderPModel();
 
@@ -68,10 +67,10 @@ namespace ZCore.ReapProfitJustSell
                 buySpotTradeOrderPModel.NewOrderRespType = NewOrderRespTypeEnum.RESULT;
                 buySpotTradeOrderPModel.Type = OrderTypesEnum.LIMIT;
                 buySpotTradeOrderPModel.TimeInForce = TimeInForceEnum.FOK;
-                SpotTradeOrderRModel buySpotTradeOrderRModel = isDebug ? new SpotTradeOrderRModel() { Status = SPOTTradestatusEnum.FILLED } : binanceSPOTHTTPService.SpotTradeOrder(buySpotTradeOrderPModel);
+                SpotTradeOrderRModel buySpotTradeOrderRModel = isDebug ? new SpotTradeOrderRModel() { Status = SPOTTradestatusEnum.FILLED,Price = querySymbolNewestPriceRModel.Price } : binanceSPOTHTTPService.SpotTradeOrder(buySpotTradeOrderPModel);
 
                 //计算买入手续费
-                var buyCommission = quantity * BinanceConstant.SPOTServiceCharge * querySymbolNewestPriceRModel.Price;
+                var buyCommission = buySpotTradeOrderRModel.Status == SPOTTradestatusEnum.FILLED ? quantity * BinanceConstant.SPOTServiceCharge * buySpotTradeOrderRModel.Price : 0;
                 ConsoleTool.WriteLine(String.Format("当前买入交易对:{0},当前交易对交易价格:{1},当前交易对交易数量{2},交易状态:{3},交易订单号:{4},交易手续费：{5}", symbol, buySpotTradeOrderRModel.Price, buySpotTradeOrderRModel.ExecutedQty, buySpotTradeOrderRModel.Status, buySpotTradeOrderRModel.OrderId, buyCommission), ConsoleColor.Yellow);
 
                 //如果成交
@@ -92,7 +91,10 @@ namespace ZCore.ReapProfitJustSell
                     sellSpotTradeOrderParam.Price = buySpotTradeOrderRModel.Price + profitCoefficient;
 
                     //卖出
-                    SpotTradeOrderRModel sellSpotTradeOrderRModel = isDebug ? new SpotTradeOrderRModel() { Status = SPOTTradestatusEnum.FILLED } : binanceSPOTHTTPService.SpotTradeOrder(sellSpotTradeOrderParam);
+                    SpotTradeOrderRModel sellSpotTradeOrderRModel = isDebug ? new SpotTradeOrderRModel() { Status = SPOTTradestatusEnum.NEW, CummulativeQuoteQty = (sellSpotTradeOrderParam.Quantity * sellSpotTradeOrderParam.Price).Value } : binanceSPOTHTTPService.SpotTradeOrder(sellSpotTradeOrderParam);
+                    //计算卖出手续费
+                    decimal sellCommission = sellSpotTradeOrderRModel.CummulativeQuoteQty * BinanceConstant.SPOTServiceCharge;
+                    ConsoleTool.WriteLine(string.Format("当前委托卖出交易对:{0},当前交易对交易价格:{1},交易状态:{2},交易订单号:{3},交易手续费：{4}", sellSpotTradeOrderRModel.Symbol, sellSpotTradeOrderRModel.Price, sellSpotTradeOrderRModel.Status, sellSpotTradeOrderRModel.OrderId, sellCommission), ConsoleColor.Yellow);
 
                     //监控
                     while (true)
@@ -101,28 +103,24 @@ namespace ZCore.ReapProfitJustSell
                         querySymbolNewestPriceRModel = binanceSPOTHTTPService.SpotQuerySymbolNewestPrice(querySymbolNewestPricePModel);
                         //差价
                         var priceDifference = querySymbolNewestPriceRModel.Price - buySpotTradeOrderPModel.Price ;
-                        ConsoleTool.WriteLine(string.Format("当前交易对:{0},当前交易对买入价格{1},当前交易对最新价格:{2},差价:{3},估算获利:{4}", symbol, buySpotTradeOrderPModel.Price, querySymbolNewestPriceRModel.Price, priceDifference, querySymbolNewestPriceRModel.Price * buySpotTradeOrderPModel.Quantity - buySpotTradeOrderPModel.Price * buySpotTradeOrderPModel.Quantity - buyCommission), ConsoleColor.DarkYellow, priceDifference >= profitCoefficient ? false : true, 500);
+                        ConsoleTool.WriteLine(string.Format("当前交易对:{0},当前交易对买入价格{1},当前交易对最新价格:{2},差价:{3},获利:{4}", symbol, buySpotTradeOrderPModel.Price, querySymbolNewestPriceRModel.Price, priceDifference, querySymbolNewestPriceRModel.Price * buySpotTradeOrderPModel.Quantity - buySpotTradeOrderPModel.Price * buySpotTradeOrderPModel.Quantity - buyCommission - sellCommission), ConsoleColor.DarkYellow, priceDifference >= profitCoefficient ? false : true, 500);
 
                         //当获利时
                         if (priceDifference >= profitCoefficient)
                         {
-
-
                             //获取订单信息
                             SpotQueryOrderInfoPModel spotQueryOrderInfoPModel = new SpotQueryOrderInfoPModel();
                             spotQueryOrderInfoPModel.OrderId = sellSpotTradeOrderRModel.OrderId;
                             spotQueryOrderInfoPModel.Symbol = symbol;
                             spotQueryOrderInfoPModel.OrigClientOrderId = sellSpotTradeOrderRModel.ClientOrderId;
 
-                            SpotQueryOrderInfoRModel spotQueryOrderInfoRModel = binanceSPOTHTTPService.SpotQueryOrderInfo(spotQueryOrderInfoPModel);
+                            SpotQueryOrderInfoRModel spotQueryOrderInfoRModel = isDebug ? new SpotQueryOrderInfoRModel() { Status = SPOTTradestatusEnum.FILLED,Price = sellSpotTradeOrderParam.Price.Value } : binanceSPOTHTTPService.SpotQueryOrderInfo(spotQueryOrderInfoPModel);
 
-                            //计算卖出手续费
-                            decimal sellCommission = sellSpotTradeOrderRModel.CummulativeQuoteQty  * BinanceConstant.SPOTServiceCharge;
-                            ConsoleTool.WriteLine(string.Format("当前卖出交易对:{0},当前交易对交易价格:{1},交易状态:{2},交易订单号:{3},交易手续费：{4}", spotQueryOrderInfoRModel.Symbol, spotQueryOrderInfoRModel.Price, spotQueryOrderInfoRModel.Status, spotQueryOrderInfoRModel.OrderId, sellCommission), ConsoleColor.Yellow);
+                            ConsoleTool.WriteLine(string.Format("当前卖出交易对:{0},当前交易对交易价格:{1},交易状态:{2},交易订单号:{3},交易手续费：{4}", symbol, spotQueryOrderInfoRModel.Price, spotQueryOrderInfoRModel.Status, spotQueryOrderInfoRModel.OrderId, sellCommission), ConsoleColor.Yellow);
 
                             //打印结果
                             ConsoleTool.WriteLine($@"
-                            当前卖出交易对:{symbol},
+                            当前交易对:{symbol},
                             当前交易对买入价格:{buySpotTradeOrderPModel.Price},
                             当前交易对买入数量:{buySpotTradeOrderPModel.Quantity},
                             当前交易对卖出价格:{sellSpotTradeOrderParam.Price},

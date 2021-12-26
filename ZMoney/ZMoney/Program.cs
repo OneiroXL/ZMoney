@@ -33,14 +33,14 @@ namespace ZMoney
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo.SymbolModelList.Count:{0}", binanceSPOTHTTPService.QueryExchangeInfo().SymbolModelList.Count), ConsoleColor.Blue);
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo.SymbolModelSpotTradingAllowedList.Count:{0}", binanceSPOTHTTPService.QueryExchangeInfo().SymbolModelList.Where(p => p.IsSpotTradingAllowed).Count()), ConsoleColor.Blue);
 
-            //ReapProfitJustSellCore.SPOTBinance("SANDUSDT", false);
+            ReapProfitJustSellCore.SPOTBinance("SANDUSDT", true);
 
             //获取订单信息
-            SpotQueryOrderInfoPModel spotQueryOrderInfoPModel = new SpotQueryOrderInfoPModel();
-            spotQueryOrderInfoPModel.OrderId = 1039063224;
-            spotQueryOrderInfoPModel.Symbol = "SANDUSDT";
+            //SpotQueryOrderInfoPModel spotQueryOrderInfoPModel = new SpotQueryOrderInfoPModel();
+            //spotQueryOrderInfoPModel.OrderId = 1039063224;
+            //spotQueryOrderInfoPModel.Symbol = "SANDUSDT";
 
-            SpotQueryOrderInfoRModel spotQueryOrderInfoRModel = binanceSPOTHTTPService.SpotQueryOrderInfo(spotQueryOrderInfoPModel);
+            //SpotQueryOrderInfoRModel spotQueryOrderInfoRModel = binanceSPOTHTTPService.SpotQueryOrderInfo(spotQueryOrderInfoPModel);
 
             //while (true) 
             //{

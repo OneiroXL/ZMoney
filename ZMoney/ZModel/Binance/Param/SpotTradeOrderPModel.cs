@@ -88,7 +88,7 @@ namespace ZModel.Binance.Param
         /// price   DECIMAL NO
         /// </summary>
         [JsonProperty(PropertyName = "price")]
-        public decimal Price { set; get; }
+        public decimal? Price { set; get; }
 
         /// <summary>
         /// newClientOrderId STRING  NO 客户自定义的唯一订单ID。 如果未发送，则自动生成
