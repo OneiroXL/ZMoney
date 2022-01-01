@@ -15,7 +15,7 @@ namespace ZOtherParty.Binance
     /// <summary>
     /// 币安 Futures HTTP 服务
     /// </summary>
-    public class BinanceFuturesHTTPService : BinanceHTTPServiceBase
+    public class BinanceUFuturesHTTPService : BinanceHTTPServiceBase
     {
         /// <summary>
         /// API地址
@@ -91,14 +91,14 @@ namespace ZOtherParty.Binance
         /// 合约下单
         /// </summary>
         /// <param name="spotTradeOrderParam"></param>
-        public FuturesTradeOrderRModel FuturesTradeOrder(FuturesTradeOrderPModel futuresTradeOrderPModel)
+        public UFuturesTradeOrderRModel FuturesTradeOrder(UFuturesTradeOrderPModel futuresTradeOrderPModel)
         {
             //地址
             string url = "/fapi/v1/order";
 
             string res = HandleWebRequest(APIAddress + url, futuresTradeOrderPModel, RequestMethodTypeEnum.POST);
             //请求
-            FuturesTradeOrderRModel futuresTradeOrderRModel = JsonConvert.DeserializeObject<FuturesTradeOrderRModel>(res);
+            UFuturesTradeOrderRModel futuresTradeOrderRModel = JsonConvert.DeserializeObject<UFuturesTradeOrderRModel>(res);
 
             return futuresTradeOrderRModel;
         }
@@ -109,17 +109,17 @@ namespace ZOtherParty.Binance
         /// <summary>
         /// 取消订单
         /// </summary>
-        /// <param name="spotCancelOrderPModel"></param>
-        public SpotCancelOrderRModel SpotCancelOrder(SpotCancelOrderPModel spotCancelOrderPModel)
+        /// <param name="uFuturesCancelOrderPModel"></param>
+        public UFuturesCancelOrderRModel CancelOrder(UFuturesCancelOrderPModel uFuturesCancelOrderPModel)
         {
             //地址
             string url = "/fapi/v1/order";
 
-            string res = HandleWebRequest(APIAddress + url, spotCancelOrderPModel, RequestMethodTypeEnum.DELETE);
+            string res = HandleWebRequest(APIAddress + url, uFuturesCancelOrderPModel, RequestMethodTypeEnum.DELETE);
             //请求
-            SpotCancelOrderRModel spotCancelOrderRModel = JsonConvert.DeserializeObject<SpotCancelOrderRModel>(res);
+            UFuturesCancelOrderRModel uFuturesCancelOrderRModel = JsonConvert.DeserializeObject<UFuturesCancelOrderRModel>(res);
 
-            return spotCancelOrderRModel;
+            return uFuturesCancelOrderRModel;
         }
         #endregion
 

@@ -52,7 +52,7 @@ namespace ZBase.ZEnum
         /// <summary>
         /// 现货 订单状态(状态 status)
         /// </summary>
-        public enum SPOTTradestatusEnum 
+        public enum TradeOrderStatusEnum 
         {
             /// <summary>
             /// 订单被交易引擎接受
@@ -178,9 +178,9 @@ namespace ZBase.ZEnum
         }
 
         /// <summary>
-        /// 现货 订单方向 (方向 side)
+        /// 订单方向 (方向 side)
         /// </summary>
-        public enum SPOTSideEuum 
+        public enum SideEuum 
         {
             /// <summary>
             /// 买入

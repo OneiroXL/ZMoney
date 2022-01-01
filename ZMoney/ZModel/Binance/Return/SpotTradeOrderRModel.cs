@@ -71,7 +71,7 @@ namespace ZModel.Binance.Return
         /// 订单状态
         /// </summary>
         [JsonProperty(PropertyName = "status")]
-        public SPOTTradestatusEnum Status { set; get; }
+        public TradeOrderStatusEnum Status { set; get; }
 
         /// <summary>
         /// 订单的时效方式

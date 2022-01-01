@@ -11,7 +11,7 @@ namespace ZModel.Binance.Param
     /// <summary>
     /// 合约下单参数
     /// </summary>
-    public class FuturesTradeOrderPModel
+    public class UFuturesTradeOrderPModel
     {
         /// <summary>
         /// 交易对 symbol STRING  YES
@@ -23,7 +23,7 @@ namespace ZModel.Binance.Param
         /// side    ENUM YES 详见枚举定义：订单方向
         /// </summary>
         [JsonProperty(PropertyName = "side")]
-        public SPOTSideEuum Side { set; get; }
+        public SideEuum Side { set; get; }
 
         /// <summary>
         /// 持仓方向，单向持仓模式下非必填，默认且仅可填BOTH;在双向持仓模式下必填,且仅可选择 LONG 或 SHORT

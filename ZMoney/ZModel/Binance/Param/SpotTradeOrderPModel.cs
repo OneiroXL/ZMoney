@@ -58,7 +58,7 @@ namespace ZModel.Binance.Param
         /// side    ENUM YES 详见枚举定义：订单方向
         /// </summary>
         [JsonProperty(PropertyName = "side")]
-        public SPOTSideEuum Side { set; get; }
+        public SideEuum Side { set; get; }
 
         /// <summary>
         /// type    ENUM YES 详见枚举定义：订单类型
