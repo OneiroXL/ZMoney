@@ -26,7 +26,7 @@ namespace ZOtherParty.Binance
         /// <summary>
         /// PING
         /// </summary>
-        public bool SpotPing()
+        public bool Ping()
         {
             //地址
             string url = "/fapi/v1/ping";
@@ -105,6 +105,26 @@ namespace ZOtherParty.Binance
 
         #endregion
 
+        #region 查询订单信息
+
+        /// <summary>
+        /// 查询订单信息
+        /// </summary>
+        /// <param name="spotTradeOrderParam"></param>
+        public UFuturesQueryFuturesOrderRModel QueryFuturesOrder(UFuturesQueryFuturesOrderPModel uFuturesQueryFuturesOrderPModel)
+        {
+            //地址
+            string url = "/fapi/v1/order";
+
+            string res = HandleWebRequest(APIAddress + url, uFuturesQueryFuturesOrderPModel, RequestMethodTypeEnum.GET);
+            //请求
+            UFuturesQueryFuturesOrderRModel uFuturesQueryFuturesOrderRModel = JsonConvert.DeserializeObject<UFuturesQueryFuturesOrderRModel>(res);
+
+            return uFuturesQueryFuturesOrderRModel;
+        }
+
+        #endregion
+
         #region 现货取消订单
         /// <summary>
         /// 取消订单
@@ -123,5 +143,44 @@ namespace ZOtherParty.Binance
         }
         #endregion
 
+
+        #region 调整杠杆
+        /// <summary>
+        /// 调整杠杆
+        /// </summary>
+        /// <param name="uFuturesAdjustmentLeveragePModel"></param>
+        public UFuturesAdjustmentLeverageRModel AdjustmentLeverage(UFuturesAdjustmentLeveragePModel uFuturesAdjustmentLeveragePModel)
+        {
+            //地址
+            string url = "/fapi/v1/leverage";
+
+            string res = HandleWebRequest(APIAddress + url, uFuturesAdjustmentLeveragePModel, RequestMethodTypeEnum.POST);
+            //请求
+            UFuturesAdjustmentLeverageRModel uFuturesAdjustmentLeverageRModel = JsonConvert.DeserializeObject<UFuturesAdjustmentLeverageRModel>(res);
+
+            return uFuturesAdjustmentLeverageRModel;
+        }
+
+        #endregion
+
+        #region 查询用户余额
+        /// <summary>
+        /// 调整杠杆
+        /// </summary>
+        /// <param name="uFuturesAdjustmentLeveragePModel"></param>
+        public Dictionary<string, UFuturesQueryBalanceRModel> QueryBalance()
+        {
+            //地址
+            string url = "/fapi/v2/balance";
+
+            string res = HandleWebRequest(APIAddress + url, new UFuturesQueryBalancePModel(), RequestMethodTypeEnum.GET);
+            //请求
+            List<UFuturesQueryBalanceRModel> uFuturesQueryBalanceRModelList = JsonConvert.DeserializeObject<List<UFuturesQueryBalanceRModel>>(res);
+
+            return uFuturesQueryBalanceRModelList.ToDictionary(p => p.Asset, p => p);
+        }
+
+
+        #endregion
     }
 }

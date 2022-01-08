@@ -24,8 +24,9 @@ namespace ZMoney
         public static void Main(string[] args)
         {
             BinanceSPOTHTTPService binanceSPOTHTTPService = new BinanceSPOTHTTPService();
+            BinanceUFuturesHTTPService binanceUFuturesHTTPService = new BinanceUFuturesHTTPService();
 
-            ConsoleTool.WriteLine("币安系统信息:", ConsoleColor.White);
+            ConsoleTool.WriteLine("币安现货系统信息:", ConsoleColor.White);
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService SpotPing:{0}", binanceSPOTHTTPService.SpotPing()), ConsoleColor.Blue);
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService GetSpotServerTime:{0}", binanceSPOTHTTPService.GetSpotServerTime()), ConsoleColor.Blue);
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService WalletServerStatus:{0}", binanceSPOTHTTPService.WalletServerStatus().Status), ConsoleColor.Blue);
@@ -33,7 +34,13 @@ namespace ZMoney
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo.SymbolModelList.Count:{0}", binanceSPOTHTTPService.QueryExchangeInfo().SymbolModelList.Count), ConsoleColor.Blue);
             ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService QueryExchangeInfo.SymbolModelSpotTradingAllowedList.Count:{0}", binanceSPOTHTTPService.QueryExchangeInfo().SymbolModelList.Where(p => p.IsSpotTradingAllowed).Count()), ConsoleColor.Blue);
 
-            ReapProfitJustSellCore.SPOTBinance("SANDUSDT", true);
+            ConsoleTool.WriteLine("币安U本位合约系统信息:", ConsoleColor.White);
+            ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService SpotPing:{0}", binanceUFuturesHTTPService.Ping()), ConsoleColor.Blue);
+            ConsoleTool.WriteLine(string.Format("BinanceSPOTHTTPService GetSpotServerTime:{0}", binanceUFuturesHTTPService.QueryServerTime()), ConsoleColor.Blue);
+
+            //ReapProfitJustSellCore.SPOTBinance("SANDUSDT", true);
+
+            ReapProfitJustSellCore.FuturesBinance("ETHUSDT", true);
 
             //获取订单信息
             //SpotQueryOrderInfoPModel spotQueryOrderInfoPModel = new SpotQueryOrderInfoPModel();

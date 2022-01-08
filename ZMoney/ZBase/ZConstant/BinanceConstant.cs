@@ -20,6 +20,11 @@ namespace ZBase.ZConstant
         /// 现货 手续费率
         /// </summary>
         public static readonly decimal SPOTServiceCharge = 1 / 1000M;
+
+        /// <summary>
+        /// 合约 手续费率
+        /// </summary>
+        public static readonly decimal FutureserviceCharge = 1 / 10000M;
     }
 
     /// <summary>
