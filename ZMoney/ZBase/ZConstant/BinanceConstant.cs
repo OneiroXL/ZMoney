@@ -22,9 +22,16 @@ namespace ZBase.ZConstant
         public static readonly decimal SPOTServiceCharge = 1 / 1000M;
 
         /// <summary>
-        /// U本位合约 手续费率
+        /// 合约 手续费率
         /// </summary>
-        public static readonly decimal UFuturesServiceCharge = 1 / 1000M;
+        public static readonly decimal FutureserviceCharge = 1 / 10000M;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public class BinanceUSDTConstant
+    {
+
+    }
 }
