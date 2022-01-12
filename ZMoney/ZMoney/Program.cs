@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp.NetCore;
 using ZBase.Tools;
+using ZCore.Monitor;
 using ZCore.ReapProfitJustSell;
 using ZModel.Binance.Param;
 using ZModel.Binance.Return;
@@ -40,7 +41,9 @@ namespace ZMoney
 
             //ReapProfitJustSellCore.SPOTBinance("SANDUSDT", true);
 
-            ReapProfitJustSellCore.FuturesBinance("ETHUSDT", true);
+            //ReapProfitJustSellCore.FuturesBinance("ETHUSDT", true);
+
+            QuotationMonitorCore.SPOTPriceMonitor("ETHUSDT");
 
             //获取订单信息
             //SpotQueryOrderInfoPModel spotQueryOrderInfoPModel = new SpotQueryOrderInfoPModel();
